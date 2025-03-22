@@ -16,6 +16,7 @@ enum SectionType: Codable, CaseIterable {
     case certifications
     case physicalAbilities
     case custom
+    case projects // Add the projects case
 
     var localizedName: String {
         switch self {
@@ -33,6 +34,8 @@ enum SectionType: Codable, CaseIterable {
             return "Physical Abilities"
         case .custom:
             return "Custom"
+        case .projects: // Add localized name
+            return "Projects"
         }
     }
 }
@@ -157,7 +160,7 @@ struct Resume: Codable, Identifiable {
     init(title: String, template: Template) {
         self.title = title
         self.template = template
-        self.sections = template.defaultSections() // Use defaultSections
+        self.sections = template.defaultSections()
     }
 }
 
