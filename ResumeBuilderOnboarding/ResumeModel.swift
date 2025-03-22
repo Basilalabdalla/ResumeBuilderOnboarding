@@ -16,7 +16,7 @@ enum SectionType: Codable, CaseIterable {
     case certifications
     case physicalAbilities
     case custom
-    case projects // Add the projects case
+    case projects
 
     var localizedName: String {
         switch self {
@@ -34,7 +34,7 @@ enum SectionType: Codable, CaseIterable {
             return "Physical Abilities"
         case .custom:
             return "Custom"
-        case .projects: // Add localized name
+        case .projects:
             return "Projects"
         }
     }
@@ -45,13 +45,12 @@ enum FieldType: Codable {
     case multilineText
     //could add Date, number types.
 }
-
-enum Template: Codable, Identifiable, Equatable {  // Add Identifiable and Equatable
+enum Template: Codable, Identifiable, Equatable {
     case template1
     case template2
-    case proTemplate // Added a Pro template
+    case proTemplate
 
-    var id: String { self.name } // Needed for Identifiable
+    var id: String { self.name }
 
     var name: String {
         switch self {
@@ -64,17 +63,16 @@ enum Template: Codable, Identifiable, Equatable {  // Add Identifiable and Equat
         }
     }
 
-     var imageName: String { // Added for potential image previews
+    var imageName: String {
         switch self {
         case .template1:
-            return "doc.text.fill"  //  SF Symbol name
+            return "doc.text.fill"
         case .template2:
-            return "doc.richtext"  //  SF Symbol name
+            return "doc.richtext"
         case .proTemplate:
-            return "doc.text.fill" //  SF Symbol name - could use a different one
+            return "doc.text.fill" //  Could use a different one
         }
     }
-    // IMPORTANT: This function defines the default sections for each template
     func defaultSections() -> [Section] {
         switch self {
         case .template1:
@@ -103,7 +101,7 @@ enum Template: Codable, Identifiable, Equatable {  // Add Identifiable and Equat
                     Field(fieldType: .multilineText, fieldName: "Description", content: "")
                 ])
             ]
-        case .proTemplate: // Example of a different set of sections
+        case .proTemplate:
             return [
                 Section(sectionType: .summary, fields:[Field(fieldType: .multilineText, fieldName: "summary", content: "")]),
                 Section(sectionType: .experience, fields: [
@@ -135,41 +133,35 @@ enum Template: Codable, Identifiable, Equatable {  // Add Identifiable and Equat
     }
 }
 
-// MARK: - Structs
-
 struct Field: Codable, Identifiable {
-    var id: UUID { UUID() } // Use a computed property
+    var id: UUID { UUID() }
     let fieldType: FieldType
     var fieldName: String
     var content: String
 }
 
 struct Section: Codable, Identifiable {
-    var id: UUID { UUID() } // Use a computed property
+    var id: UUID { UUID() }
     var sectionType: SectionType
     var fields: [Field]
 }
 
 struct Resume: Codable, Identifiable {
-    var id: UUID { UUID() } // Use a computed property
+    var id: UUID { UUID() }
     var template: Template
     var sections: [Section]
-    var title: String // Add other properties as needed
+    var title: String
 
-    // Initializer that uses the default sections from the template
     init(title: String, template: Template) {
         self.title = title
         self.template = template
         self.sections = template.defaultSections()
     }
 }
-
-// MARK: - Preview Data (for Xcode Previews)
 let sampleTemplates = [
     Template.template1,
     Template.template2,
     Template.proTemplate
 ]
 
-// Now uses the initializer
 let sampleResume = Resume(title: "My Resume", template: .template1)

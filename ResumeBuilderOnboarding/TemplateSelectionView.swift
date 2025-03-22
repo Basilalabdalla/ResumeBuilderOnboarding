@@ -41,10 +41,3 @@ struct TemplateSelectionView: View {
         }
     }
 }
-
-#Preview {
-    TemplateSelectionView(selectedTemplate: .constant(sampleTemplates[0]), isProUser: false)
-}
-#Preview {
-    TemplateSelectionView(selectedTemplate: .constant(sampleTemplates[0]), isProUser: true)
-}

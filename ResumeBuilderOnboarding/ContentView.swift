@@ -10,6 +10,7 @@ struct ContentView: View {
         ResumeEditorView(resume: sampleResume, isProUser: false)
     }
 }
+
 #Preview {
     ContentView()
 }
