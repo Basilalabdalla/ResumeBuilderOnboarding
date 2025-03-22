@@ -138,20 +138,20 @@ enum Template: Codable, Identifiable, Equatable {  // Add Identifiable and Equat
 // MARK: - Structs
 
 struct Field: Codable, Identifiable {
-    let id = UUID()
+    var id: UUID { UUID() } // Use a computed property
     let fieldType: FieldType
     var fieldName: String
     var content: String
 }
 
 struct Section: Codable, Identifiable {
-    let id = UUID()
+    var id: UUID { UUID() } // Use a computed property
     var sectionType: SectionType
     var fields: [Field]
 }
 
 struct Resume: Codable, Identifiable {
-    let id = UUID() // Add an ID to the Resume
+    var id: UUID { UUID() } // Use a computed property
     var template: Template
     var sections: [Section]
     var title: String // Add other properties as needed
